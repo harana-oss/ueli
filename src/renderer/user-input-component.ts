@@ -197,6 +197,7 @@ export const userInputComponent = Vue.extend({
                 class="user-input__input"
                 type="text"
                 v-model="userInput"
+                placeholder="Search..."
                 @keydown="keyPress"
             >
             <div class="user-input__user-confirmation-container" :class="{ 'visible' : refreshIndexesIsPending && !userConfirmationDialogVisible }">

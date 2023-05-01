@@ -20,7 +20,7 @@ const defaultUserConfigOptions: UserConfigOptions = {
         showSearchResultNumbers: false,
         smoothScrolling: true,
         userInputHeight: 60,
-        windowWidth: 600,
+        windowWidth: 1024,
         userInputBorderRadius: "0px",
         userInputFontSize: "24px",
         userInputFontWeight: "200",
