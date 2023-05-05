@@ -69,6 +69,14 @@ export const userInputComponent = Vue.extend({
                 event.preventDefault();
                 vueEventDispatcher.$emit(VueEventChannels.tabPress);
             }
+            if (event.key === "ArrowRight") {
+                event.preventDefault();
+                vueEventDispatcher.$emit(VueEventChannels.moveToResults);
+            }
+            if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                vueEventDispatcher.$emit(VueEventChannels.moveToCategories);
+            }
 
             if (event.key.toLowerCase() === "o" && ctrlOrMeta) {
                 vueEventDispatcher.$emit(VueEventChannels.openSearchResultLocationKeyPress);

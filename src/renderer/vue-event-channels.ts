@@ -1,6 +1,8 @@
 export enum VueEventChannels {
     enterPress = "enter-press",
     tabPress = "tab-press",
+    moveToResults = "move-to-results",
+    moveToCategories = "move-to-categories",
     openSearchResultLocationKeyPress = "open-search-result-location-key-press",
     handleOpenLocation = "handle-open-location",
     handleExecution = "handle-execution",

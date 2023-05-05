@@ -26,7 +26,7 @@ export const searchCategoriesPannel = Vue.extend({
       searchResults: [],
     }
   },
-  props: ["appearance"],
+  props: ["appearance", "selectedScreen"],
   methods: {
     getIcon(icon: Icon, active: boolean) {
       const activeClass = active ? "active" : "";
@@ -60,9 +60,12 @@ export const searchCategoriesPannel = Vue.extend({
     handleSearchResultPageBrowsing(direction: BrowseDirection): void {
         const searchResults: SearchResultItemViewModel[] = this.searchResults;
         if (searchResults.length === 0) return;
-
-        const activeSearchResult = searchResults.find((r) => r.active);
-        if (activeSearchResult === undefined) return;
+        const activeSearchResult = searchResults.find((r) => {
+            return r.active
+        });
+        if (activeSearchResult === undefined) {
+            return
+        }
 
         const activeSearchResultIndex = searchResults.indexOf(activeSearchResult);
         const firstVisibleSearchResultIndex = this.getIndexOfFirstVisibleSearchResult();
@@ -77,10 +80,10 @@ export const searchCategoriesPannel = Vue.extend({
                 activeSearchResultIndex < lastVisibleSearchResultIndex
                     ? lastVisibleSearchResultIndex
                     : activeSearchResultIndex + maxSearchResultsPerPage;
-        } else {
-            nextActiveIndex =
-                activeSearchResultIndex > firstVisibleSearchResultIndex &&
-                activeSearchResultIndex <= lastVisibleSearchResultIndex
+                } else {
+                    nextActiveIndex =
+                    activeSearchResultIndex > firstVisibleSearchResultIndex &&
+                    activeSearchResultIndex <= lastVisibleSearchResultIndex
                     ? firstVisibleSearchResultIndex
                     : activeSearchResultIndex - maxSearchResultsPerPage;
         }
@@ -116,7 +119,6 @@ export const searchCategoriesPannel = Vue.extend({
         if (searchResults.length === 0) {
             return;
         }
-
         let nextActiveIndex = 0;
 
         for (let i = 0; i < searchResults.length; i++) {
@@ -175,10 +177,17 @@ export const searchCategoriesPannel = Vue.extend({
         this.update(updatedSearchResults);
     });
     vueEventDispatcher.$on(VueEventChannels.selectNextItem, () => {
-        this.handleSearchResultBrowsing(BrowseDirection.Next);
+        if(this.selectedScreen === 'category') {
+            this.handleSearchResultBrowsing(BrowseDirection.Next);
+        }
     });
     vueEventDispatcher.$on(VueEventChannels.selectPreviousItem, () => {
-        this.handleSearchResultBrowsing(BrowseDirection.Previous);
+        if(this.selectedScreen === 'category') {
+            this.handleSearchResultBrowsing(BrowseDirection.Previous);
+        }
+    });
+    vueEventDispatcher.$on(VueEventChannels.moveToResults, () => {
+        this.$emit('changeFocusToSearchResults', 'results')
     });
     vueEventDispatcher.$on(VueEventChannels.pageDownPress, () => {
         this.handleSearchResultPageBrowsing(BrowseDirection.Next);

@@ -40,3 +40,16 @@ export function createSearchResultItemViewModel(
         supportsOpenLocation: searchResult.supportsOpenLocation,
     };
 }
+
+export interface iconUrl {
+    type: string,
+    parameter: string
+}
+
+export interface ResultsItemsViewModel {
+    itemId: string,
+    active: boolean,
+    iconUrl: iconUrl,
+    title: string,
+    description: string
+}
