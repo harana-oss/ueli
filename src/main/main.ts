@@ -415,7 +415,7 @@ function updateMainWindowSize(searchResultCount: number, appearanceOptions: Appe
         if (center) {
             mainWindow.center();
         }
-        mainWindow.resizable = false;
+        // mainWindow.resizable = false;
     }
 }
 

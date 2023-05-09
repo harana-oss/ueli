@@ -26,7 +26,7 @@ export const searchCategoriesPannel = Vue.extend({
       searchResults: [],
     }
   },
-  props: ["appearance", "selectedScreen"],
+  props: ["appearance", "selectedScreen", "searchingResultsLength"],
   methods: {
     getIcon(icon: Icon, active: boolean) {
       const activeClass = active ? "active" : "";
@@ -187,7 +187,9 @@ export const searchCategoriesPannel = Vue.extend({
         }
     });
     vueEventDispatcher.$on(VueEventChannels.moveToResults, () => {
-        this.$emit('changeFocusToSearchResults', 'results')
+        if(this.searchingResultsLength) {
+            this.$emit('changeFocusToSearchResults', 'results')
+        }
     });
     vueEventDispatcher.$on(VueEventChannels.pageDownPress, () => {
         this.handleSearchResultPageBrowsing(BrowseDirection.Next);
